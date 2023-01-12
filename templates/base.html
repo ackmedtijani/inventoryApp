@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+{% load static %}
+    <head>
+        <meta charset="utf- ">
+        <meta name="viewport" content="width=device-width, initial-scale= , shrink-to-fit=no">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    </head>
+
+
+
+    <body>
+        <nav>
+            <div class="container">
+                <div id="input">
+                    <p id="search" class="btn"> <i class="fas fa-search"></i> Search </p>
+                    <div id="search-modal">
+                        <input type="text" id="search-input" placeholder="Search" >
+                        <section class="search-results">
+                            <div class="items">
+                                <h3> Items </h3>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <h2 id="logo"> <span> IyaBendel</span>Stores</h2>
+                <p class="btn"> ?Help </p>
+            </div>
+        </nav>
+
+        <section id="body">
+            <div id="left-side-bar">
+                    <p><a id="product-menu" class="current"> <i class="fas fa-folder-open"></i> Product Inventory <span class="menu-tally btn"> 20 </span></a></p>
+                    <p> <a id="purchase-menu"> <i class="fas fa-folder-open"></i> Purchases <span class="menu-tally btn"> 30 </span> </a></p>
+                    <p> <a id="cashinventory-menu"> <i class="fas fa-folder-open"> </i> Cash Inventory <span class="menu-tally btn"> 10 </span> </a></p>
+
+            </div>
+            <div id="right-side-bar">
+                <nav class="table-nav">
+                    <ul>
+                        <li> <a> Table </a> </li>
+                        <li> <a> Filter </a> </li>
+                        <li> <a> Sort </a> </li>
+                    </ul>
+                </nav>
+
+
+                {% if products %}
+
+                <table id="table-products" class="table-current">
+                    <thead>
+                
+                        <tr>
+                            <th> </th>
+                            {% for fields in product_object.all_columns %}
+                            <th> {{ fields }} </th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                {% for product in products %}
+                    <tr class="table-cells">
+                        <td id="{{ product.name }} " class="edit-btn product"> Edit </td>
+                        <td> {{ product.id }} </td>
+                        <td> {{ product.name }} </td>
+                        <td> {{ product.quantity_per_pack }}</td>
+                        <td> {{ product.quantity_per_unit }} </td>
+                        <td> &#8358 {{ product.price_per_quantity }} </td>
+                        <td> &#8358 {{ product.price_per_unit }} </td>
+                        <td> {{ product.category }} </td>
+                    </tr>
+                {% endfor %}
+                    <tr> <td id="product-add-new" class="add-new" colspan="7"> <i class="fa-solid fa-plus"></i> Add New</td></tr>
+                    </tbody>
+
+
+
+                    <div id="add-product-modal">
+                        <div class="container">
+                            <h2> Add Product </h2>
+                            <form action="{% url 'add' 'product' %}" method="post">
+                                {% csrf_token %}
+                            
+                            {{ product_addform.media }}
+                            {{ product_addform.as_p }}
+
+                            <button class="btn"> Submit </button>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="edit-product-modal">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <button class="btn"> Submit </button>
+                        </form>
+
+                    </div>
+                </table>
+
+
+
+                {% endif %}
+
+                {% if purchase_object %}
+
+                <table id="table-purchases" >
+                    <tr>
+                        {% for fields in purchase_object.all_columns %}
+                        <th> {{ fields }} </th>
+                        {% endfor %}
+                    </tr>
+                {% for purchase in purchases %}
+                
+                    <tr id=" {{ purchase.id }} ">
+                        
+                        <td> <i> Edit </i></td>
+                        <td> {{ purchase.id }} </td>
+                        <td> {{ purchase.product }} </td>
+                        <td> {{ purchase.quantity_purchased }}</td>
+                        <td> &#8358 {{ purchase.price }} </td>
+                        <td> &#8358 {{ purchase.amount_paid }} </td>
+                        <td> &#8358 {{ purchase.change_given }} </td>
+                        <td> {{ purchase.date_purchased }}</td>
+                        <td> {{ purchase.restock }} </td>
+                        <td> {{ purchase.purchased_by }} </td>
+                    </tr>
+                    
+                {% endfor %}
+
+                <tr> <td id="product-add-new" class="add-new" colspan="{{ purchase_object.all_columns|length }}"> <i class="fa-solid fa-plus"></i> Add New</td></tr>
+
+
+                </table>
+
+                {% endif %}
+
+                    
+                    
+
+            </div>
+            `
+        </section>
+
+    </body>
+
+    <script src="{% static 'js/main.js' %}"> </script>
+</html>

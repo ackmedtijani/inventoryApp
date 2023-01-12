@@ -1,0 +1,244 @@
+:root{
+    --primary-color: #E0B0FF;
+    --offwhite: #f5f5f;
+}
+
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    
+}
+
+
+body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.7rem;
+    overflow: scroll;
+    
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+
+}
+
+/* Utility Classes */
+
+.btn{
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--primary-color);
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.btn:hover{
+    opacity: 0.8;
+}
+
+.table-btn:hover{
+    background-color: white;
+}
+
+/* Navbar */
+
+nav{
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+}
+
+nav .container{
+    display: flex;
+    padding: 0.8rem;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#logo span{
+    color: grey;
+}
+
+/* Search */
+
+#search-modal{
+    display: none;
+    color: black;
+    position: absolute;
+    top: 55px;
+    left: 12px;
+    width: 35vw;
+    height: 40vh;
+    background-color:#f5f5f5;
+    padding: 1rem;
+    z-index: 2;
+}
+
+#search-modal input{
+    width: 100%;
+    padding: 0.5rem;
+}
+
+#search-modal input:hover{
+    background-color: lightgrey;
+}
+
+
+
+/* Body */ 
+
+#body{
+    display: flex;
+}
+
+/* Left-side-bar */
+
+
+#left-side-bar{
+    flex: 1;
+    height: 100%;
+    position: sticky;
+    top: 60px;
+    z-index: 2;
+    
+
+}
+
+#left-side-bar p{
+    text-align: center;
+
+}
+
+#left-side-bar p a{
+    display: inline-block;
+    padding: 1em 0;
+    width: 100%;
+}
+
+#left-side-bar p a:hover{
+    background-color: lightgray;
+   
+}
+
+#left-side-bar p a.current {
+    background-color: lightgrey;
+}
+
+/* Right Section */
+
+#right-side-bar{
+    flex: 3;
+    background-color: #f5f5f5;
+    overflow: scroll;
+}
+
+.table-nav{
+    z-index: 0;
+}
+
+.table-nav ul{
+    display: flex;
+    background-color: white;
+    border: 1px solid #f5f5f5;
+    padding: 0.5rem;
+    z-index: -3;
+}
+
+
+/* Tables */
+
+table{
+    display: none;
+    margin: 1rem;
+    margin-left: 3rem;
+    overflow-x: auto;
+}
+
+.table-current{
+    display: block;
+}
+
+tr{
+    background-color: lightgrey;
+}
+table , td , th{
+    border: 1px solid lightgrey;
+    border-collapse: collapse;
+}
+
+th , td{
+    padding: 1rem;
+    text-align: right;
+}
+
+tr .add-new{
+    text-align: left;
+}
+
+td{
+    background-color: white;
+}
+
+td:hover{
+    background-color: lightgrey;
+}
+
+.table-nav ul li{
+    margin: 0.2rem 0;
+}
+.table-nav ul li a{
+    padding: 0.2rem 1rem;
+}
+
+
+.table-nav ul li a:hover{
+    background-color: lightgrey;
+}
+
+/* Modals */
+
+/* Addition Modals */
+
+#add-product-modal{
+    display: none;
+}
+
+#add-product-modal .container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #f5f5f5;
+    padding: 1rem;
+    width: 40vw;
+    align-items: center;
+}
+
+#add-product-modal p{
+    width: 100%;
+}
+
+
+p > input, p > label , p > select{
+    display: block;
+    margin: 1rem;
+    text-align: left;
+}
+
+p > input , p > select{
+    width: 90%;
+    padding: 0.5rem;
+}
+
+/* Edit Modal */
+
+#edit-product-modal {
+    display: none;
+}
