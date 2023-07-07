@@ -1,5 +1,5 @@
 from django import forms
-from .models import Purchase , Product , CategoryChoices , Order
+from .models import Purchase , Product  , Order
 
 class ProductForm(forms.ModelForm):
     name = forms.CharField(label='Name' ,

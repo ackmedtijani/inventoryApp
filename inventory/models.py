@@ -2,33 +2,31 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+
 # Create your models here.
 
-class CustomUser(AbstractBaseUser):
-    first_name = models.CharField(max_length= 100, blank=True, null=True)
-    email = models.CharField(max_length=150, blank=True, unique=True, null=True)
-    last_name = models.CharField(max_length=100, blank=True, null=True)
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+
+class SubCategory(models.Model):
+    category_id = models.ForeignKey(Category , blank=False , null=False , on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
     
-    REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'password']
-    USERNAME_FIELD = 'email'
-
-
-class CategoryChoices(models.TextChoices):
-        minerals = ('minerals' , 'MINERALS')
-        groceries = ('groceries' , 'GROCERIES')
-        foodstuff = ('foodstuff' , 'FOODSTUFF')
-        
-
 
 class Product(models.Model):
-    
-    
     name = models.CharField(max_length=255 , blank=False, null=False , unique=True)
     quantity_per_pack = models.IntegerField( blank=True, null=True)
     quantity_per_unit = models.IntegerField( blank=True, null=True)
     price_per_quantity = models.IntegerField()
     price_per_unit = models.IntegerField()
-    category = models.CharField(max_length = 255 , choices=CategoryChoices.choices)
+    '''content_type = models.ForeignKey(ContentType,
+                                     limit_choices_to= {'model__in':(
+                                        'Category' , 'SubCategory')}, 
+                               on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    item = GenericForeignKey('content_type', 'object_id')'''
     
     def __str__(self):
         return self.name
@@ -85,14 +83,12 @@ class Purchase(models.Model):
 class Order(models.Model):
     purchases = models.ManyToManyField(Purchase, blank=False, null=False)
     price = models.IntegerField(blank=False, null=False)
-    purchased_by = models.CharField(blank=True, null=False)
+    purchased_by = models.CharField(max_length = 255, blank=True, null=False)
     paid = models.BooleanField(default = True , blank=False , null=False)
     amount_paid = models.IntegerField()
     change_given = models.IntegerField(blank = True , null=False)
     restock = models.BooleanField(default=False)
-    
-    
-    
+
     
 class CashInventory(models.Model):
     cash_at_hand = models.IntegerField()
